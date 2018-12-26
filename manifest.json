@@ -1,0 +1,6 @@
+{
+  "name": "tpPolymer",
+  "short_name": "tpPolymer",
+  "start_url": "/",
+  "display": "standalone"
+}
