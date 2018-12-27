@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 
 
 <dom-module id="tp-polymer-app">
@@ -8,12 +9,21 @@
       :host {
         display: block;
       }
+      .spinner { display: block; margin: 0 auto; }
     </style>
-    <h2>Hello [[prop1]]!</h2>
+    <h2>Hello [[user.username]]!</h2>
+    <li>
+      <ul>Nombre de Usuario : [[user.username]]</ul>
+      <ul>Honor: [[user.honor]]</ul>
+      <ul>Clan: [[user.clan]]</ul>
+      <ul>LeaderBoard Position: [[user.leaderboardPosition]]</ul>
+    </li>
 
-    <iron-ajax url="https://www.codewars.com/api/v1/users/Chris7o" handle-as="json" last-response="{{ninjaListTop}}" 
-      auto></iron-ajax>
+    <iron-ajax url="https://techcodewars.herokuapp.com/api/v1/users/Chris7o" handle-as="json" 
+    last-response="{{user}}" loading="{{loading}}" 
+    auto></iron-ajax>
 
+    <paper-spinner class="spinner" active="[[loading]]"></paper-spinner>
     
   </template>
 
@@ -26,9 +36,13 @@
       static get is() { return 'tp-polymer-app'; }
       static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'tp-Polymer-app'
+          user: {
+            type: Object,
+            notyfy: true
+          },
+          loading: {
+            type: Boolean,
+            value: true
           }
         };
       }

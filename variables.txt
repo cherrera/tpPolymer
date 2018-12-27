@@ -1,0 +1,5 @@
+SET NODE_PATH=%NODE_PATH%;C:\desaSoft\nodejs\node_modules
+SET NPM_PATH=C:\desaSoft\nodejs
+SET GITDIR=C:\desaSoft\Git\bin
+SET NODE_PATH_GRAL=C:\Users\xa03436\AppData\Roaming\npm
+SET PATH=%NODE_PATH_GRAL%;%MVN_PATH%;%NODE_PATH%;%NPM_PATH%;%GITDIR%;%PATH%

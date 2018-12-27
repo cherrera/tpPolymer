@@ -1,0 +1,14 @@
+- Utilizar la API publicada en la URL : *https://techcodewars.herokuapp.com/* (La documentación de la API está en dev.codewars.com, sólo hay que cambiar el host)
+
+- Obtener los datos de un ninja(pueden ser ustedes u otro perfil si ustedes no tienen datos) /api/v1/users/:user y mostrar:
+skills del ninja, ranking global y por lenguajes
+
+- Debajo usando el endpoint /api/v1/users/:user/code-challenges/completed:
+Mostrar los últimos 5 katas que completo
+
+- Se debe permitir filtrar los katas por lenguaje
+
+- Al seleccionar un Kata se debe usar el endpoint /api/v1/code-challenges/:id_or_slug para mostrar debajo el enunciado del kata
+
+- tienen que crear al menos 3 componentes polymer nuevos
+- deben reutilizar al menos 3 componentes polymer del catalogo webcomponent.org
