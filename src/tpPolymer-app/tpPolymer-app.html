@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
-<dom-module id="tpPolymer-app">
+
+<dom-module id="tp-polymer-app">
   <template>
     <style>
       :host {
@@ -8,6 +10,11 @@
       }
     </style>
     <h2>Hello [[prop1]]!</h2>
+
+    <iron-ajax url="https://www.codewars.com/api/v1/users/Chris7o" handle-as="json" last-response="{{ninjaListTop}}" 
+      auto></iron-ajax>
+
+    
   </template>
 
   <script>
@@ -16,12 +23,12 @@
      * @polymer
      */
     class TpPolymerApp extends Polymer.Element {
-      static get is() { return 'tpPolymer-app'; }
+      static get is() { return 'tp-polymer-app'; }
       static get properties() {
         return {
           prop1: {
             type: String,
-            value: 'tpPolymer-app'
+            value: 'tp-Polymer-app'
           }
         };
       }
