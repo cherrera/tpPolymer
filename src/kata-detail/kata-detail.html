@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<dom-module id="kata-detail">
+    <template>
+        <style>
+        
+        </style>
+        <div class="card">
+                 <ul>
+                    <li><span>Name: </span>[[name]]</li>
+                    <li><span>Language: </span>[[language]]</li>
+                </ul>
+            </div>
+        
+    </template> 
+    <script>
+    class KataDetail extends Polymer.Element {
+        static get is() { return 'kata-detail'; }
+        static get properties() {
+            return {
+                name: String,
+                language: String
+                
+            }
+        }
+
+        
+    }
+    customElements.define(KataDetail.is, KataDetail);
+</script>
+
+</dom-module>

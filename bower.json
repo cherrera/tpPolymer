@@ -4,11 +4,20 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "iron-ajax": "PolymerElements/iron-ajax#2",
-    "paper-spinner": "PolymerElements/paper-spinner#^3.0.1",
-    "paper-button": "PolymerElements/paper-button#2"
+    "paper-spinner": "PolymerElements/paper-spinner#2.0",
+    "paper-button": "PolymerElements/paper-button#2",
+    "paper-input": "PolymerElements/paper-input#2.0-preview"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "resolutions": {
+    "iron-behaviors": "1 - 2",
+    "paper-styles": "1 - 2",
+    "iron-a11y-keys-behavior": "1 - 2",
+    "iron-form-element-behavior": "1 - 2",
+    "iron-validatable-behavior": "1 - 2",
+    "iron-meta": "1 - 2"
   }
 }

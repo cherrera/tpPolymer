@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="language-detail">
+        <template>
+            <style>
+/*                 :host .card * { margin: 0; padding: 0; box-sizing: border-box; }
+                li { list-style: none; }
+                .card h1 { margin-bottom: 10px; }
+                .card ul li:not(:last-child) { margin-bottom: 5px; }
+               
+                 paper-button { margin: 20px 0; display: block; text-align: center; }*/
+            </style> 
+            <div class="card">
+                <h2>[[language]]</h2>
+                <ul>
+                    <li><span>rank: </span>[[rank]]</li>
+                    <li><span>name: </span>[[name]]</li>
+                    <li><span>color: </span>[[color]]</li>
+                    <li><span>score: </span>[[score]]</li>
+                </ul>
+            </div>
+        </template>
+        <script>
+            class LanguageDetail extends Polymer.Element {
+                static get is() { return 'language-detail'; }
+                static get properties() {
+                    return {
+                        language: String,
+                        rank: String,
+                        name: String,
+                        color: String,
+                        score: Number
+                    }
+                }
+
+                
+            }
+            customElements.define(LanguageDetail.is, LanguageDetail);
+        </script>
+</dom-module>

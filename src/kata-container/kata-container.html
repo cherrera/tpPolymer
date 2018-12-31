@@ -1,0 +1,77 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="../kata-detail/kata-detail.html">
+
+<dom-module id="kata-container">
+        <template>
+            <style>
+            
+            </style>
+            <iron-ajax url="https://techcodewars.herokuapp.com/api/v1/users/Chris7o/code-challenges/completed" handle-as="json" 
+            last-response="{{katasCompleted}}" loading="{{loading}}" 
+            auto></iron-ajax>
+
+            <div class="card">
+                    <h2>Katas Finalizados</h2>
+                    <paper-input  name="user"  value="{{searchString}}"  label="Search for Katas"></paper-input>
+
+                    <template is="dom-repeat" items="{{katasCompleted.data}}" sort={{_sort}} filter="{{_filter(searchString)}}">
+                        <kata-detail name=[[item.name]] language=[[item.completedLanguages]]></kata-detail>
+                    </template>
+                </div>
+            
+        </template> 
+        <script>
+        class KataContainer extends Polymer.Element {
+            static get is() { return 'kata-container'; }
+            static get properties() {
+                return {
+                    kata: {
+                        type: Object,
+                        notyfy: true
+                    },
+                    loading: {
+                        type: Boolean,
+                        value: true
+                    }
+                    
+          }
+            }
+            _sort(a, b) {
+                var nameA = a.completedAt; 
+                var nameB = b.completedAt; 
+                if (nameA < nameB) {
+                    return 1;
+                }
+                if (nameA > nameB) {
+                    return -1;
+                }
+
+                // names must be equal
+                return 0;
+                }
+           
+            _filter(string) {
+                if (!string) {
+                    // set filter to null to disable filtering
+                    return null;
+                } else {
+                    // return a filter function for the current search string
+                    string = string.toLowerCase();
+                    return function (item) {
+                        console.log(item.completedLanguages);
+                        //TODO solo estoy resolviendo el primer valor del array
+                        var language = item.completedLanguages[0];
+                        return (language == string);
+                    };
+                }
+            }
+            
+        }
+        customElements.define(KataContainer.is, KataContainer);
+    </script>
+    
+    </dom-module>
