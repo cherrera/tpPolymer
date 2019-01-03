@@ -36,6 +36,10 @@
                     loading: {
                         type: Boolean,
                         value: true
+                    },
+                    searchString:{
+                        type: String,
+                        value: ""
                     }
                     
           }
@@ -56,18 +60,38 @@
            
             _filter(string) {
                 if (!string) {
-                    // set filter to null to disable filtering
-                    return null;
+                    // return first 5 elements
+                    var max = 0;
+                    return function (item) {
+                        //TODO solo estoy resolviendo el primer valor del array
+                        if(max < 5){
+                            max++;
+                            return true;
+                        }else{
+                            return false;
+                        };
+                    };
                 } else {
                     // return a filter function for the current search string
                     string = string.toLowerCase();
-                    return function (item) {
-                        console.log(item.completedLanguages);
+                    var max = 0;
+                    return function (item) {                       
                         //TODO solo estoy resolviendo el primer valor del array
                         var language = item.completedLanguages[0];
-                        return (language == string);
+                        console.log((language == string) && max < 5);
+                        if((language == string) && max < 5){
+                            max++;
+                            return true;
+                        }else{
+                            return false;
+                        };
                     };
                 }
+            }
+
+            _limit(array, max){
+                console.log(array);
+                return array.slice(0, max);
             }
             
         }
