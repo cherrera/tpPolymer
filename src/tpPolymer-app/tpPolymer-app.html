@@ -1,9 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="../language-detail/language-detail.html">
 <link rel="import" href="../kata-container/kata-container.html">
-
+<link rel="import" href="../user-detail/user-detail.html">
 
 <dom-module id="tp-polymer-app">
   <template>
@@ -12,15 +14,19 @@
         display: block;
       }
       .spinner { display: block; margin: 0 auto; }
+      #resultado { display: none; }
     </style>
 
-    <iron-ajax url="https://techcodewars.herokuapp.com/api/v1/users/Chris7o" handle-as="json" 
-    last-response="{{user}}" loading="{{loading}}" 
-    auto></iron-ajax>
+    <h1>Ninjas Codewars</h1>
+    <paper-input  value="{{usuario}}"  label="Search for Ninjas"></paper-input>
+    <paper-button on-click="buscar">Buscar</paper-button>
 
-    <paper-spinner class="spinner" active="[[loading]]"></paper-spinner>
+    <iron-ajax id="perfilNinja" url="https://techcodewars.herokuapp.com/api/v1/users/[[usuario]]" handle-as="json" 
+    last-response="{{user}}" loading="{{cargando}}"></iron-ajax>
+
+    <paper-spinner class="spinner" active="[[cargando]]"></paper-spinner>
     
-    <h1>Hello [[user.username]]!</h1>
+<!--     <h1>Hello [[user.username]]!</h1>
     <ul>
       <li>Honor: [[user.honor]]</li>
       <li>Clan: [[user.clan]]</li>
@@ -37,11 +43,14 @@
         </ul>
     </div>
 
-    <template is="dom-repeat" items="{{_toArray(user.ranks.languages)}}">
+    <template is="dom-repeat" items="[[_toArray(user.ranks.languages)]]">
          <language-detail language="[[item.title]]" rank="[[item.value.rank]]" name="[[item.value.name]]" color="[[item.value.color]]" score="[[item.value.score]]"></language-detail>
     </template>
-  
-    <kata-container></kata-container>
+ --> 
+      <user-detail user={{user}} ></user-detail>
+
+      <kata-container username={{user.username}}></kata-container>
+
   </template>
 
   <script>
@@ -53,25 +62,24 @@
       static get is() { return 'tp-polymer-app'; }
       static get properties() {
         return {
-          user: {
-            type: Object,
-            notyfy: true
-          },
-          loading: {
+          cargando: {
             type: Boolean,
-            value: true
-          }
+            value: false
+          },
+          usuario: {
+            type: String,
+            value: ""
+          } 
         };
       }
-      _toArray(obj) {
-            return Object.keys(obj).map(function(key) {
-                return {
-                    title: key,
-                    value: obj[key]
-                };
-            });
-            //console.log(obj);
+        buscar() {
+        if ("" == this.usuario) {
+          alert("Ingresá el usuario...");
+          return;
         }
+        this.$.perfilNinja.generateRequest();
+        //console.log(this.$.perfilNinja.generateRequest().parseResponse());
+      }
     }
 
     window.customElements.define(TpPolymerApp.is, TpPolymerApp);

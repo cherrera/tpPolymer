@@ -10,7 +10,7 @@
             <style>
             
             </style>
-            <iron-ajax url="https://techcodewars.herokuapp.com/api/v1/users/Chris7o/code-challenges/completed" handle-as="json" 
+            <iron-ajax url="https://techcodewars.herokuapp.com/api/v1/users/{{username}}/code-challenges/completed" handle-as="json" 
             last-response="{{katasCompleted}}" loading="{{loading}}" 
             auto></iron-ajax>
 
@@ -31,7 +31,7 @@
                 return {
                     kata: {
                         type: Object,
-                        notyfy: true
+                        notify: true
                     },
                     loading: {
                         type: Boolean,
@@ -40,7 +40,9 @@
                     searchString:{
                         type: String,
                         value: ""
-                    }
+                    },
+                    username: String
+
                     
           }
             }

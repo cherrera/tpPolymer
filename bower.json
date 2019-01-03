@@ -18,6 +18,7 @@
     "iron-a11y-keys-behavior": "1 - 2",
     "iron-form-element-behavior": "1 - 2",
     "iron-validatable-behavior": "1 - 2",
-    "iron-meta": "1 - 2"
+    "iron-meta": "1 - 2",
+    "iron-flex-layout": "1 - 2"
   }
 }
