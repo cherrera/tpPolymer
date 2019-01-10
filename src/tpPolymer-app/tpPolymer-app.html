@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
@@ -18,38 +19,24 @@
     </style>
 
     <h1>Ninjas Codewars</h1>
-    <paper-input  value="{{usuario}}"  label="Search for Ninjas"></paper-input>
-    <paper-button on-click="buscar">Buscar</paper-button>
+    <paper-input  value="{{usuario}}"  label="Search for Ninjas" autofocus></paper-input>
+    <paper-button on-click="_buscar">Buscar</paper-button>
 
     <iron-ajax id="perfilNinja" url="https://techcodewars.herokuapp.com/api/v1/users/[[usuario]]" handle-as="json" 
     last-response="{{user}}" loading="{{cargando}}"></iron-ajax>
 
     <paper-spinner class="spinner" active="[[cargando]]"></paper-spinner>
-    
-<!--     <h1>Hello [[user.username]]!</h1>
-    <ul>
-      <li>Honor: [[user.honor]]</li>
-      <li>Clan: [[user.clan]]</li>
-      <li>LeaderBoard Position: [[user.leaderboardPosition]]</li>
-      <li>Skills: [[user.skills]]</li>
-    </ul>
-    <div class="card">
-        <h2>Ranking Global</h2>
-        <ul>
-            <li><span>rank: </span>[[user.ranks.overall.rank]]</li>
-            <li><span>name: </span>[[user.ranks.overall.name]]</li>
-            <li><span>color: </span>[[user.ranks.overall.color]]</li>
-            <li><span>score: </span>[[user.ranks.overall.score]]</li>
-        </ul>
-    </div>
+  
 
-    <template is="dom-repeat" items="[[_toArray(user.ranks.languages)]]">
-         <language-detail language="[[item.title]]" rank="[[item.value.rank]]" name="[[item.value.name]]" color="[[item.value.color]]" score="[[item.value.score]]"></language-detail>
-    </template>
- --> 
-      <user-detail user={{user}} ></user-detail>
+     
+      <template is="dom-if" if="[[_mostrar(user,cargando)]]">
+      <user-detail user=[[user]]></user-detail>
 
-      <kata-container username={{user.username}}></kata-container>
+      <kata-container username=[[user.username]]></kata-container>
+      </template>
+  
+  
+
 
   </template>
 
@@ -66,19 +53,36 @@
             type: Boolean,
             value: false
           },
+          desplegado: {
+              type: Boolean,
+              value: false
+          },
           usuario: {
             type: String,
             value: ""
-          } 
+          }
         };
       }
-        buscar() {
+      _buscar() {
         if ("" == this.usuario) {
           alert("Ingresá el usuario...");
           return;
         }
         this.$.perfilNinja.generateRequest();
-        //console.log(this.$.perfilNinja.generateRequest().parseResponse());
+
+      }
+      _mostrar(user, cargando){
+
+        return user && (!cargando);
+      }
+      _handleResponse(event){
+        console.log("_handleResponse... " + event.detail.response);
+            // this.$.resultado.innerHTML = event.detail.innerHTML;
+        }
+
+      _handleError(event){
+        console.log("_handleError... " + event.detail.response);
+          // this.$.resultado.innerHTML = event.detail.innerHTML;
       }
     }
 

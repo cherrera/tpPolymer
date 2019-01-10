@@ -2,39 +2,55 @@
 <dom-module id="user-detail">
     <template>
         <style>
-        
+            :host {
+            display: block;
+            max-width: 400px;
+            box-shadow: 0 1px 15px -5px black;
+            padding: 15px;
+            margin-bottom: 20px;
+            }
+            :host .card * { margin: 0; padding: 0; box-sizing: border-box; }
+            li { list-style: none; }
+            .card h1 { margin-bottom: 10px; }
+            .card ul li:not(:last-child) { margin-bottom: 5px; }
         </style>
-        <h1>Hello [[user.username]]!</h1>
-        <ul>
-            <li>Honor: [[user.honor]]</li>
-            <li>Clan: [[user.clan]]</li>
-            <li>LeaderBoard Position: [[user.leaderboardPosition]]</li>
-            <li>Skills: [[user.skills]]</li>
-        </ul>
-        <div class="card">
-            <h2>Ranking Global</h2>
-            <ul>
-                <li><span>rank: </span>[[user.ranks.overall.rank]]</li>
-                <li><span>name: </span>[[user.ranks.overall.name]]</li>
-                <li><span>color: </span>[[user.ranks.overall.color]]</li>
-                <li><span>score: </span>[[user.ranks.overall.score]]</li>
-            </ul>
-        </div>
+            <div class="card">
+            <h1>Hello [[user.username]]!</h1>
+                <ul>
+                    <li>Honor: [[user.honor]]</li>
+                    <li>Clan: [[user.clan]]</li>
+                    <li>LeaderBoard Position: [[user.leaderboardPosition]]</li>
+                    <li>Skills: [[user.skills]]</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h2>Ranking Global</h2>
+                <ul>
+                    <li><span>rank: </span>[[user.ranks.overall.rank]]</li>
+                    <li><span>name: </span>[[user.ranks.overall.name]]</li>
+                    <li><span>color: </span>[[user.ranks.overall.color]]</li>
+                    <li><span>score: </span>[[user.ranks.overall.score]]</li>
+                </ul>
+            </div>
 
-        <h2>Ranking por Lenguaje</h2>
-        <template is="dom-repeat" items="[[_toArray(user.ranks.languages)]]">
-                <language-detail language="[[item.title]]" rank="[[item.value.rank]]" name="[[item.value.name]]" color="[[item.value.color]]" score="[[item.value.score]]"></language-detail>
-        </template>
-       
+            <h2>Ranking por Lenguaje</h2>
+            <template is="dom-repeat" items="[[_toArray(user.ranks.languages)]]">
+                    <language-detail language="[[item.title]]" rank="[[item.value.rank]]" name="[[item.value.name]]" color="[[item.value.color]]" score="[[item.value.score]]"></language-detail>
+            </template>
     </template> 
     <script>
     class UserDetail extends Polymer.Element {
         static get is() { return 'user-detail'; }
         static get properties() {
             return {
-                user: Object,
-                notify: true
-                
+                user: {
+                    type : Object,
+                    notify: true
+                },
+                error: {
+                    type : Object,
+                    notify: true
+                }
             }
         }
         _toArray(obj) {
@@ -44,7 +60,6 @@
                     value: obj[key]
                 };
             });
-            //console.log(obj);
         }   
 
         

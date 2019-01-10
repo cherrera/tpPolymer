@@ -10,16 +10,15 @@
             <style>
             
             </style>
-            <iron-ajax url="https://techcodewars.herokuapp.com/api/v1/users/{{username}}/code-challenges/completed" handle-as="json" 
-            last-response="{{katasCompleted}}" loading="{{loading}}" 
-            auto></iron-ajax>
+            <iron-ajax id="listKatas" url="https://techcodewars.herokuapp.com/api/v1/users/{{username}}/code-challenges/completed" handle-as="json" 
+            last-response="{{katasCompleted}}" loading="{{loading}}"></iron-ajax>
 
             <div class="card">
                     <h2>Katas Finalizados</h2>
                     <paper-input  name="user"  value="{{searchString}}"  label="Search for Katas"></paper-input>
 
                     <template is="dom-repeat" items="{{katasCompleted.data}}" sort={{_sort}} filter="{{_filter(searchString)}}">
-                        <kata-detail name=[[item.name]] language=[[item.completedLanguages]]></kata-detail>
+                        <kata-detail name=[[item.name]] language=[[item.completedLanguages]] id=[[item.id]]></kata-detail>
                     </template>
                 </div>
             
@@ -41,10 +40,17 @@
                         type: String,
                         value: ""
                     },
-                    username: String
+                    username: {
+                        type: String,
+                        //value: ""
+                        observer: '_generateRequest'
+                    }
 
                     
           }
+            }
+            _generateRequest(){
+                this.$.listKatas.generateRequest();
             }
             _sort(a, b) {
                 var nameA = a.completedAt; 
